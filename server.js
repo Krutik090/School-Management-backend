@@ -7,6 +7,9 @@ const path = require('path');
 const cookieparser = require('cookie-parser');
 const studentRoutes = require('./routes/studentRoutes');
 const authRoutes = require('./routes/authRoutes');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const fs = require('fs');
 
 dotenv.config();
 
@@ -27,9 +30,13 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Swagger Configuration
+// Load Swagger JSON
+const swaggerDocument = JSON.parse(fs.readFileSync('./swagger.json', 'utf8'));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // Access the student Routes
 app.use('/api/student', studentRoutes);
-
 app.use('/api/auth', authRoutes);
 
 mongoose.connect(process.env.MONGO_URI).then(() => console.log('Connected to MongoDB'))
