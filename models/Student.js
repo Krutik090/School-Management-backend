@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const StudentSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
+    gender: { type: String, enum: ['male', 'female'], required: true },
     dateOfBirth: { type: Date, required: true },
-    roll: { type: String, required: true, unique: true },
+    roll: { type: String, required: true },
     bloodGroup: { type: String },
     religion: { type: String },
     email: { type: String, unique: true, sparse: true }, // Email is optional
