@@ -10,6 +10,7 @@ const swaggerUi = require('swagger-ui-express');
 const studentRoutes = require('./routes/studentRoutes');
 const authRoutes = require('./routes/authRoutes');
 const teacherRoutes = require('./routes/teacherRoutes');
+const classRoutes = require('./routes/classRoutes');
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/students', studentRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/teachers', teacherRoutes);
+app.use('/api/classes', classRoutes);
 
 // MongoDB Connection
 const connectDB = async () => {

@@ -674,7 +674,9 @@
     "/teachers/{id}": {
       "get": {
         "summary": "Get teacher by ID",
-        "tags": ["Teachers"],
+        "tags": [
+          "Teachers"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -741,7 +743,9 @@
       },
       "put": {
         "summary": "Update teacher details",
-        "tags": ["Teachers"],
+        "tags": [
+          "Teachers"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -801,7 +805,9 @@
       },
       "delete": {
         "summary": "Delete teacher",
-        "tags": ["Teachers"],
+        "tags": [
+          "Teachers"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -819,6 +825,346 @@
           },
           "404": {
             "description": "Teacher not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/classes/add": {
+      "post": {
+        "summary": "Create a new class",
+        "tags": [
+          "Classes"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "10th Grade"
+                  },
+                  "section": {
+                    "type": "string",
+                    "example": "A"
+                  },
+                  "classTeacher": {
+                    "type": "string",
+                    "description": "ObjectId of the class teacher",
+                    "example": "660a1b7f9a5b1c001f7c8d44"
+                  }
+                },
+                "required": [
+                  "name",
+                  "section"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Class created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Class created successfully"
+                    },
+                    "class": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "661a1b7f9a5b1c001f7c8d99"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "10th Grade"
+                        },
+                        "section": {
+                          "type": "string",
+                          "example": "A"
+                        },
+                        "classTeacher": {
+                          "type": "string",
+                          "example": "660a1b7f9a5b1c001f7c8d44"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Class name already exists"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/classes/get-all": {
+      "get": {
+        "summary": "Get all classes",
+        "tags": [
+          "Classes"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all classes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "classes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "661a1b7f9a5b1c001f7c8d99"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "10th Grade"
+                          },
+                          "section": {
+                            "type": "string",
+                            "example": "A"
+                          },
+                          "classTeacher": {
+                            "type": "string",
+                            "example": "Mr. John Doe"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/classes/{id}": {
+      "get": {
+        "summary": "Get class details by ID",
+        "tags": [
+          "Classes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the class to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Class details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "class": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "67eed32a968f4736035becc4"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "10th Grade"
+                        },
+                        "section": {
+                          "type": "string",
+                          "example": "A"
+                        },
+                        "classTeacher": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "67eeca8b20eee7d0589f101f"
+                            },
+                            "user": {
+                              "type": "object",
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "example": "67eec983453473ba6afd5463"
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "example": "John Doe"
+                                },
+                                "email": {
+                                  "type": "string",
+                                  "example": "johndoe@example.com"
+                                },
+                                "role": {
+                                  "type": "string",
+                                  "example": "teacher"
+                                }
+                              }
+                            },
+                            "phone": {
+                              "type": "string",
+                              "example": "+919876543210"
+                            },
+                            "qualification": {
+                              "type": "string",
+                              "example": "M.Sc in Mathematics"
+                            }
+                          }
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Class not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update class details",
+        "tags": [
+          "Classes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the class to update",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "12th Grade"
+                  },
+                  "section": {
+                    "type": "string",
+                    "example": "B"
+                  },
+                  "classTeacher": {
+                    "type": "string",
+                    "example": "67eeca8b20eee7d0589f101f"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Class updated successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "404": {
+            "description": "Class not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete class",
+        "tags": [
+          "Classes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the class to delete",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Class deleted successfully"
+          },
+          "404": {
+            "description": "Class not found"
           },
           "500": {
             "description": "Server error"
