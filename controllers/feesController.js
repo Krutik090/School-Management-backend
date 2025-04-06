@@ -33,3 +33,53 @@ exports.payFees = async (req, res) => {
         });
     }
 };
+
+
+exports.getFeesByStudent = async (req, res) => {
+    try {
+        const { studentId } = req.params;
+
+        const fees = await Fee.find({ student: studentId }).populate('student', 'name email');
+
+        if (!fees || fees.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'No fee records found for the student',
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            fees,
+        });
+    } catch (error) {
+        console.error('Error fetching fees:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error while fetching fee details',
+        });
+    }
+};
+
+exports.getPendingFees = async (req, res) => {
+    try {
+        const pendingFees = await Fee.find({ status: 'pending' }).populate('student', 'name email');
+        if (!pendingFees || pendingFees.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'No pending fees found',
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            fees: pendingFees,
+        });
+    } catch (error) {
+        console.error('Error fetching pending fees:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error while fetching pending fees',
+        });
+    }
+};

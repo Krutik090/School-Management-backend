@@ -14,6 +14,8 @@ const classRoutes = require('./routes/classRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const feesRoutes = require('./routes/feesRoutes');
+const examRoutes = require('./routes/examRoutes');
+const e = require('express');
 dotenv.config();
 
 const app = express();
@@ -48,9 +50,11 @@ app.use('/api/students', studentRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/teachers', teacherRoutes);
 app.use('/api/classes', classRoutes);
-app.use('/api/subjects',subjectRoutes);
-app.use('/api/attendance',attendanceRoutes);
-app.use('/api/fees',feesRoutes);
+app.use('/api/subjects', subjectRoutes);
+app.use('/api/attendance', attendanceRoutes);
+app.use('/api/fees', feesRoutes);
+app.use('/api/exams', examRoutes);
+
 // MongoDB Connection
 const connectDB = async () => {
   try {
